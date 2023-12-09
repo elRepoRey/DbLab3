@@ -1,0 +1,26 @@
+﻿<Window x:Class="Lab3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:view="clr-namespace:Lab3.View"       
+        mc:Ignorable="d"
+        Title="MyQuizApp" Height="1000" Width="1200">
+    <Window.DataContext>
+        <view:MainViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <ContentControl Name="Navbar"  Grid.Row="0" Content="{Binding NavbarView}" />
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto"
+                      Margin="0,0,0,0">
+            <ContentControl Name="ContentArea" Content="{Binding CurrentView}" />
+        </ScrollViewer>
+    </Grid>
+</Window>

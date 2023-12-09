@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="Lab3.View.Navbar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Lab3.Utils"
+             mc:Ignorable="d"              
+             Background="#333333"
+             >
+    <Grid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Button Content="Welcome" Background="Transparent" BorderThickness="0" Foreground="White" Command="{Binding NavigateCommand}" CommandParameter="{x:Static local:EnumNavbarItems.Welcome}" Margin="10,0"/>
+
+            <Button Content="Quizzes" Background="Transparent" BorderThickness="0" Foreground="White" Command="{Binding NavigateCommand}" CommandParameter="{x:Static local:EnumNavbarItems.Quizzes}" Margin="10,0"/>
+
+            
+            <Button Content="Create Quiz" Background="Transparent" BorderThickness="0" Foreground="White" Command="{Binding NavigateCommand}" CommandParameter="{x:Static local:EnumNavbarItems.CreateQuiz}" Margin="10,0"/>
+
+        
+            <Button Content="Generate Quiz" Background="Transparent" BorderThickness="0" Foreground="White" Command="{Binding NavigateCommand}" CommandParameter="{x:Static local:EnumNavbarItems.GenerateQuiz}" Margin="10,0"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

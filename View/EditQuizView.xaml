@@ -1,0 +1,134 @@
+﻿<UserControl x:Class="Lab3.View.EditQuizView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             
+             xmlns:utils="clr-namespace:Lab3.Utils"
+             xmlns:local="clr-namespace:Lab3.View"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <!-- TextBox Style -->
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Background" Value="#F2F2F2" />
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC" />
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="#333333"/>
+            
+        </Style>
+
+        <!-- Label Style -->
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#333333"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Button Style -->
+        <Style TargetType="Button">           
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Height" Value="30"/>            
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="0,5,0,5"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#005B9E"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- ComboBox Style -->
+        <Style TargetType="ComboBox">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Background" Value="#F2F2F2" />
+            <Setter Property="BorderBrush" Value="#CCCCCC" />
+            <Setter Property="FontSize" Value="14"/>
+          
+            <Setter Property="Foreground" Value="#333333"/>
+        </Style>
+     
+    </UserControl.Resources>
+    
+        <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            
+        </Grid.ColumnDefinitions>
+
+       
+        <StackPanel Grid.Column="0" Margin="0,0,0,0" HorizontalAlignment="Center" Width="500">
+
+            <TextBlock Text="Edit Quiz" FontWeight="Bold" FontSize="24" Margin="0,20,0,20" Foreground="#007ACC" HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding CurrentQuestionNumberText}" FontSize="15" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="10"/>
+
+            <Label Content="Quiz Title" Margin="10,10,10,0"/>
+            <TextBox Text="{Binding QuizTitle, Mode=TwoWay}" Margin="10" TextChanged="OnQuizTitleChanged"/>
+
+            <Label Content="Question" Margin="10,10,10,5"/>
+            <TextBox Text="{Binding QuestionStatement, Mode=TwoWay}" Margin="10" TextChanged="OnTextChanged"/>
+
+            <Label Content="Answers" Margin="10,10,10,5" />
+            <TextBox Text="{Binding Answers[0], Mode=TwoWay}" Margin="10,5" TextChanged="OnTextChanged"/>
+            <TextBox Text="{Binding Answers[1], Mode=TwoWay}" Margin="10,5" TextChanged="OnTextChanged"/>
+            <TextBox Text="{Binding Answers[2], Mode=TwoWay}" Margin="10,5" TextChanged="OnTextChanged"/>
+        
+
+            <Label Content="Correct Answer" Margin="0,10,0,10" />
+            <ComboBox SelectedIndex="{Binding CorrectAnswer, Mode=TwoWay}" Margin="10,5" HorizontalAlignment="Stretch">
+                <ComboBoxItem>Answer 1</ComboBoxItem>
+                <ComboBoxItem>Answer 2</ComboBoxItem>
+                <ComboBoxItem>Answer 3</ComboBoxItem>
+            </ComboBox>
+            
+            <Label Content="Category" Margin="10,10,10,5"/>
+            <TextBox Text="{Binding Category, Mode=TwoWay}" Margin="10,5" TextChanged="OnTextChanged"/>
+
+            <Label Content="Question Image" Margin="10,10,10,5"/>
+            <Button Content="Browse Image" Command="{Binding BrowseImageCommand}" Margin="10,5" Background="DarkGray" HorizontalAlignment="Stretch" />            
+
+
+                <StackPanel Grid.Column="0" Margin="0,50,0,0" HorizontalAlignment="Center">
+
+
+                    <!-- Update Question Button -->
+                    <Button Command="{Binding UpdateQuestionCommand}" Content="Update Question" IsEnabled="{Binding IsModified}" Background="#00A800" 
+                        HorizontalAlignment="Stretch" 
+                        Margin="10" 
+                        Padding="15,4,15,4" />
+
+                    <!-- Save Quiz Button -->
+                    <Button Command="{Binding SaveCommand}" Content="Save Quiz" IsEnabled="{Binding CanSaveQuiz}" Background="#007ACC"
+                        HorizontalAlignment="Stretch" 
+                        Margin="10" 
+                        Padding="15,4,15,4" />
+                    <!-- Previous Button -->
+                <Button Command="{Binding PreviousQuestionCommand}" Content="Previous"
+                         HorizontalAlignment="Stretch" 
+                         Margin="10" 
+                         Padding="15,4,15,4" 
+                         IsEnabled="{Binding IsPreviousQuestionAvailable}"
+                          Background="DarkGray"/>
+
+
+                <!-- Next Button -->
+                    <Button Command="{Binding NextQuestionCommand}" Content="Next" 
+                            HorizontalAlignment="Stretch" 
+                            Margin="10" 
+                            Padding="15,4,15,4" 
+                             IsEnabled="{Binding IsNextQuestionAvailable}"
+                            Background="DarkGray"
+                            />
+                </StackPanel>               
+                    
+        </StackPanel>
+
+      
+    </Grid>
+    
+</UserControl>

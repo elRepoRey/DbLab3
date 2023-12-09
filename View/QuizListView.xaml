@@ -1,0 +1,119 @@
+﻿<UserControl x:Class="Lab3.View.QuizListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:view="clr-namespace:Lab3.View"
+             Width="Auto" Height="Auto"
+             >
+
+    <UserControl.Resources >
+        <!-- Common Button Style -->
+        <Style x:Key="CommonButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="2,10,2,10"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#005B9E"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+
+        <!-- Edit Button Style -->
+        <Style TargetType="Button" x:Key="EditButtonStyle" BasedOn="{StaticResource CommonButtonStyle}">
+            <Setter Property="Background" Value="#00A800"/>
+            <Setter Property="Width" Value="50"/>
+        </Style>
+
+        <!-- Delete Button Style -->
+        <Style TargetType="Button" x:Key="DeleteButtonStyle" BasedOn="{StaticResource CommonButtonStyle}">
+            <Setter Property="Background" Value="#D50000"/>
+            <Setter Property="Width" Value="50"/>
+        </Style>
+ 
+     
+
+        <!-- ListView  -->
+        <Style TargetType="ListViewItem">
+            <Setter Property="Margin" Value="0,20,0,10" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <GridViewRowPresenter Columns="{TemplateBinding GridView.ColumnCollection}" Content="{TemplateBinding Content}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="GridViewColumnHeader">
+            <Setter Property="Visibility" Value="Collapsed" />
+        </Style>
+        
+        <!-- Title Button Style -->
+        <Style x:Key="TitleButtonStyle" TargetType="Button" BasedOn="{StaticResource CommonButtonStyle}">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="20,10,2,10"/>            
+            <Setter Property="MinWidth" Value="400"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            
+        </Style>
+            
+    </UserControl.Resources>
+
+    <Grid Width="Auto">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Quiz List" FontWeight="Bold" FontSize="24" Margin="10,20,0,0" Foreground="#007ACC"/>
+
+        <ListView Name="lstQuizzes" Background="#F3F3F3" ItemsSource="{Binding QuizTitles}" Margin="10,20,10,20" Grid.Row="1" AlternationCount="2" Grid.Column="0">
+            <ListView.View>
+                <GridView>
+                    <!-- Actions Column -->
+                    <GridViewColumn Width="150">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Button Content="Edit" 
+                                    Style="{StaticResource EditButtonStyle}"                                     
+                                    Command="{Binding Path=DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                    CommandParameter="{Binding}" 
+                                    Margin="5,0,5,0" />
+                                    <Button Content="Delete" 
+                                    Style="{StaticResource DeleteButtonStyle}" 
+                                    Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                    CommandParameter="{Binding}" 
+                                    Margin="5,0,5,0" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <!-- Title with Play Command -->
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="{Binding}" 
+                                        Style="{StaticResource TitleButtonStyle}"
+                                        Command="{Binding Path=DataContext.PlayCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                        CommandParameter="{Binding}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+    </Grid>
+</UserControl>
